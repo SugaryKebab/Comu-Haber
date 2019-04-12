@@ -2,7 +2,12 @@ package edu.comu.haber;
 
 
 import android.os.AsyncTask;
-import edu.comu.haber.html.HtmlParser;
+
+import java.io.IOException;
+import java.util.List;
+
+import edu.comu.haber.webpages.MainPage;
+import edu.comu.haber.webpages.model.News;
 
 
 public class deneme extends AsyncTask<Void,Void,Void> {
@@ -10,10 +15,13 @@ public class deneme extends AsyncTask<Void,Void,Void> {
 
     @Override
     protected Void doInBackground(Void... voids) {
-
-       HtmlParser parser = new HtmlParser();
-        parser.deneme();
-        parser.setNews();
+        MainPage mainPage = new MainPage();
+        try {
+            mainPage.connectToPage();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        List<News> yeter = mainPage.getNews();
 
         return null;
     }
