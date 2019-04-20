@@ -17,11 +17,11 @@ public class News {
         this.title = title;
     }
 
-    public String getList() {
+    public String getUrl() {
         return url;
     }
 
-    public void setList(String list) {
+    public void setUrl(String list) {
         this.url = list;
     }
 

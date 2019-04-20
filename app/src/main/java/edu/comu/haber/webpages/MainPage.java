@@ -1,5 +1,7 @@
 package edu.comu.haber.webpages;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import java.io.IOException;
@@ -14,6 +16,8 @@ public class MainPage extends HtmlParser {
     private final String table ="table > tbody > tr > td:has(a)";
     private final String LINK ="a";
     private final String TITLE = "title";
+    private String lastNews = "last";
+    private final String LASTNEW  = "LastNews";
     private List<News> news = new ArrayList<>();
 
 
@@ -29,5 +33,17 @@ public class MainPage extends HtmlParser {
         }
         Log.d("news",news.toString());
         return news;
+    }
+
+    public String getLastNews(Context context) {
+        SharedPreferences sharedPref = context.getSharedPreferences(lastNews, Context.MODE_PRIVATE);
+        return  sharedPref.getString(this.lastNews,"false");
+    }
+
+    public void setLastNews(Context context,String lastNews){
+        SharedPreferences sharedPref = context.getSharedPreferences(this.lastNews ,Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString(this.lastNews,lastNews);
+        editor.apply();
     }
 }
