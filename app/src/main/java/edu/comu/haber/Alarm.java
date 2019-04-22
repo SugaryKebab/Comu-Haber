@@ -20,7 +20,6 @@ public class Alarm {
     private  Intent intent;
     private AlarmManager manager;
 
-
     Alarm(Context context){
         this.context = context;
         this.intent = new Intent(context, CheckNewsService.class);
@@ -34,7 +33,6 @@ public class Alarm {
         }
     }
 
-
     public boolean isWorkingHour() {
         Calendar rightNow = Calendar.getInstance();
         int hour = rightNow.get(Calendar.HOUR_OF_DAY);
@@ -45,27 +43,17 @@ public class Alarm {
         }
     }
 
-
-    public void setAlarmOneTime(Context context) {
-
-
-/*
-        PendingIntent pendingIntent = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            pendingIntent = PendingIntent.getForegroundService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        } else {
-            pendingIntent = PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        }
+    public void setAlarmOneTime() {
         if (Build.VERSION.SDK_INT >= 23) {
             manager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime()
-                    + randomHour() * 60 * 1000, pendingIntent);
+                    + randomHour(), realTimeWakeUp);
         } else {
-            manager.set(AlarmManager.ELAPSED_REALTIME, System.currentTimeMillis() + randomHour() * 60 * 1000, pendingIntent);
-        }*/
+            manager.set(AlarmManager.ELAPSED_REALTIME, System.currentTimeMillis() + randomHour(), realTimeWakeUp);
+        }
     }
 
     public void setAlarmNextDay(Context context) {
-    /*    Calendar calendar = Calendar.getInstance();
+       Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
         calendar.set(Calendar.HOUR_OF_DAY, 9);
         calendar.set(Calendar.MINUTE, randomHour());
@@ -74,30 +62,19 @@ public class Alarm {
             calendar.add(Calendar.DATE, 1);
         }
 
-        manager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
-        Intent intent = new Intent(context, CheckNewsService.class);
-
-        PendingIntent pendingIntent = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            pendingIntent = PendingIntent.getForegroundService(context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        } else {
-            pendingIntent = PendingIntent.getService(context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        }
-
         if (Build.VERSION.SDK_INT >= 23) {
 
-            manager.setAndAllowWhileIdle(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
+            manager.setAndAllowWhileIdle(AlarmManager.RTC, calendar.getTimeInMillis(), rtcWAKEUp);
         } else {
-            manager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
-        }*/
+            manager.set(AlarmManager.RTC, calendar.getTimeInMillis(), rtcWAKEUp);
+        }
     }
 
     private int randomHour() {
         Random rand = new Random();
         hour = rand.nextInt((60 - 30) + 1) + 30;
 
-        return hour;
+        return hour * 60 * 1000;
     }
-
 
 }
