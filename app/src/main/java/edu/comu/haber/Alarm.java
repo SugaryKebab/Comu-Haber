@@ -52,7 +52,7 @@ public class Alarm {
         }
     }
 
-    public void setAlarmNextDay(Context context) {
+    public void setAlarmNextDay() {
        Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
         calendar.set(Calendar.HOUR_OF_DAY, 9);
