@@ -15,10 +15,12 @@ public class NotificationUtils extends ContextWrapper {
     public static final String CHANNEL_ID = "edu.comu.haber";
     public static final String CHANNEL_NAME = "haber";
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
+
     public NotificationUtils(Context base) {
         super(base);
-        createChannels();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            createChannels();
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -48,16 +50,16 @@ public class NotificationUtils extends ContextWrapper {
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public Notification.Builder getAndroidChannelNotificationForOreo(String title, String body) {
-        return new Notification.Builder(getApplicationContext(), CHANNEL_ID)
+    public Notification.Builder getAndroidChannelNotificationForOreo(Context context, String title, String body) {
+        return new Notification.Builder(context, CHANNEL_ID)
                 .setContentTitle(title)
                 .setContentText(body)
                 .setSmallIcon(android.R.drawable.btn_plus)
                 .setAutoCancel(true);
     }
 
-    public Notification.Builder getAndroidChannelNotificationFor(String title, String body) {
-        return new Notification.Builder(getApplicationContext())
+    public Notification.Builder getAndroidChannelNotificationFor(Context context, String title, String body) {
+        return new Notification.Builder(context)
                 .setContentTitle(title)
                 .setContentText(body)
                 .setSmallIcon(android.R.drawable.btn_plus)

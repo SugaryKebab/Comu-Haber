@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
 
             Constraints constraints = new Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build();
 
-            PeriodicWorkRequest builder = new PeriodicWorkRequest.Builder(CheckNews.class,15, TimeUnit.MINUTES).setConstraints(constraints).build();
+            PeriodicWorkRequest builder = new PeriodicWorkRequest.Builder(CheckNews.class,2, TimeUnit.HOURS).setConstraints(constraints).build();
             WorkManager.getInstance().enqueueUniquePeriodicWork("check",  ExistingPeriodicWorkPolicy.KEEP,builder);
 
         }
